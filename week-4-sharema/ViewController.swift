@@ -14,17 +14,10 @@ class ViewController: UIViewController, WKUIDelegate  {
   
     @IBOutlet weak var label: UILabel!
     
-    var webView: WKWebView!
-    
-    override func loadView() {
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
-        view = webView
-    }
-    
     override func viewDidLoad() {
-        label.text = "adadasdad"
+        if senderType == SenderTypeEnum.text{
+            label.text = text
+        }
        super.viewDidLoad()
       //  lable.text = "qweqweq"
 //        if senderType == SenderTypeEnum.url{
