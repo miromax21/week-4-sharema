@@ -7,14 +7,37 @@
 //
 
 import UIKit
-
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+import  WebKit
+class ViewController: UIViewController, WKUIDelegate  {
+    var text: String = ""
+    var senderType: SenderTypeEnum?
+  
+    @IBOutlet weak var label: UILabel!
+    
+    var webView: WKWebView!
+    
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
     }
-
+    
+    override func viewDidLoad() {
+        label.text = "adadasdad"
+       super.viewDidLoad()
+      //  lable.text = "qweqweq"
+//        if senderType == SenderTypeEnum.url{
+//            let myURL = URL(string: "https://www.apple.com")
+//            let myRequest = URLRequest(url: myURL!)
+//            webView.load(myRequest)
+//        }
+//        if senderType == SenderTypeEnum.text{
+//            l
+//        }
+    //    lable.text = tittle
+        // Do any additional setup after loading the view
+    }
 
 }
 

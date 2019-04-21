@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WebKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
         return true
     }
 
@@ -39,6 +40,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "vc") as! ViewController
+        let urlScheme = url.scheme
+        let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
+        let items = (urlComponents?.queryItems)! as [NSURLQueryItem]
+        if (urlScheme  == "ss") {
+            if let _ = items.first, let propertyName = items.first?.name, let propertyValue = items.first?.value{
+                vc.senderType = SenderTypeEnum(rawValue: propertyName)
+                vc.text = propertyValue
+            }
+        }
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+        return false
+        
+//        var a = 22
+//        let rootViewController = self.window!.rootViewController
+//        let main = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = main.instantiateViewController(withIdentifier: "vc") as! ViewController
+//        vc.text = "3121231231231231231"
+//        rootViewController?.present(vc, animated: true)
+      //  rootViewController.pushViewController(vc, animated: true)
+      //  rootViewController?.navigationController?.popToViewController(vc, animated: true)
+
+//        let urlScheme = url.scheme //[URL_scheme]
+//        let host = url.host //red
+//        // When you type customSchemeExample://?backgroundColor=red or
+//        //swiftexamples://?backgroundColor=green
+//        let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
+//        let items = (urlComponents?.queryItems)! as [NSURLeryItem] // {name = backgroundcolor, value = red}
+//        if (urlScheme  == "swiftexamples") {
+//            var color: UIColor? = nil
+//            var vcTitle = ""
+//            if let _ = items.first, let propertyName = items.first?.name, let propertyValue = items.first?.value {
+//                vcTitle = propertyName
+//                if (propertyValue == "red") {
+//                    color = .red
+//                } else if (propertyValue == "green") {
+//                    color = .green
+//                }
+//            }
+//
+//
+//            if (color != nil) {
+//                let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let vc = mainStoryboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+//                self.window?.rootViewController = vc
+//               // let vc =  ViewController()
+//                vc.tittle = "eqweqeqeqweqweq"
+////
+////                vc.view.backgroundColor = color
+////                vc.title = vcTitle
+//                let navController = UINavigationController(rootViewController: vc)
+//                let barButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismiss))
+//                vc.navigationItem.leftBarButtonItem = barButtonItem
+//                self.window?.rootViewController?.present(navController, animated: true, completion: nil)
+//                return true
+//            }
+//        }
+
+    }
+    
+    @objc func dismiss() {
+        self.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 
 
