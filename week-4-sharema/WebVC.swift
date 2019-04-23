@@ -18,6 +18,7 @@ class WebVC: UIViewController, WKUIDelegate {
         webView.uiDelegate = self
         view = webView
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let myURL = URL(string: url)

@@ -19,17 +19,6 @@ class ViewController: UIViewController, WKUIDelegate  {
             label.text = text
         }
        super.viewDidLoad()
-      //  lable.text = "qweqweq"
-//        if senderType == SenderTypeEnum.url{
-//            let myURL = URL(string: "https://www.apple.com")
-//            let myRequest = URLRequest(url: myURL!)
-//            webView.load(myRequest)
-//        }
-//        if senderType == SenderTypeEnum.text{
-//            l
-//        }
-    //    lable.text = tittle
-        // Do any additional setup after loading the view
     }
 
 }

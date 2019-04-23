@@ -45,21 +45,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "vc") as! ViewController
-        let webVC = storyboard.instantiateViewController(withIdentifier: "webVC") as! WebVC
+        
+        let webVC = storyboard.instantiateViewController(withIdentifier: "webVC") as? WebVC
         let urlScheme = url.scheme
         let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
         let items = (urlComponents?.queryItems)! as [NSURLQueryItem]
         if (urlScheme  == "ss") {
-            if let _ = items.first, let propertyName = items.first?.name, let propertyValue = items.first?.value{
+            if items.first != nil, let propertyName = items.first?.name, let propertyValue = items.first?.value{
                 let st = SenderTypeEnum(rawValue: propertyName)
                 if st == SenderTypeEnum.text{
+                    let vc = storyboard.instantiateViewController(withIdentifier: "vc") as! ViewController
                     vc.senderType = st
                     vc.text = propertyValue
                     self.window?.rootViewController = vc
                 }
                 if st == SenderTypeEnum.url{
-                    webVC.url = propertyValue
+                    webVC?.url = propertyValue
                     self.window?.rootViewController = webVC
                 }
                 
@@ -69,10 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         return false
 
-    }
-    
-    @objc func dismiss() {
-        self.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 
 
